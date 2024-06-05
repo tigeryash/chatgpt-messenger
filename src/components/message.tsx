@@ -26,14 +26,8 @@ const Message = ({ message }: { message: DocumentData }) => {
           </div>
         </div>
       ) : (
-        <div className="ml-auto max-w-[212px] sm:max-w-[350px] md:max-w-[70%] min-h-[20px] rounded-3xl text-sm md:text-base bg-[#2f2f2f] py-2.5 px-5 markdown">
-          <ReactMarkdown
-            components={{
-              h1: ({ node, ...props }) => <HeadingWithCopy {...props} />,
-            }}
-          >
-            {message.text}
-          </ReactMarkdown>
+        <div className="ml-auto max-w-[212px] sm:max-w-[350px] md:max-w-[70%] min-h-[20px] rounded-3xl text-sm md:text-base bg-[#2f2f2f] py-2.5 px-5 break-words">
+          {message.text}
         </div>
       )}
     </>
