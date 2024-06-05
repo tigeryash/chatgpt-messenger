@@ -11,4 +11,22 @@
     @apply rounded-lg px-5 py-3 text-sm flex items-center justify-center space-x-2 hover:bg-gray-700/50 cursor-pointer
     text-gray-300 transition-all duration-200 ease-out;
   }
+
+  .markdown pre {
+    @apply bg-black text-white p-4 rounded-lg overflow-x-auto;
+  }
+
+  .markdown code {
+    @apply px-2 py-1 rounded;
+  }
+
+  .markdown h1,
+  .markdown h2,
+  .markdown h3 {
+    @apply text-2xl;
+  }
+
+  .markdown p {
+    @apply text-white;
+  }
 }
