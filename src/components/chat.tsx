@@ -44,7 +44,7 @@ const Chat = ({ chatId }: { chatId: string }) => {
         </>
       )}
       <div
-        className="relative w-full flex-col space-y-2 md:space-y-8 lg:space-y-10 text-white 
+        className="relative max-w-full flex-col space-y-2 md:space-y-8 lg:space-y-10 text-white 
       md:mx-auto flex md:max-w-3xl lg:max-w-[40rem] xl:max-w-[48rem]"
       >
         {messages?.docs.map((message) => (

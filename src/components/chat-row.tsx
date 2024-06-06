@@ -22,7 +22,7 @@ const ChatRow = ({ id }: { id: string }) => {
     if (!pathname) return;
 
     setActive(pathname.includes(id));
-  }, [pathname]);
+  }, [pathname, id]);
 
   const removeChat = async () => {
     await deleteDoc(doc(db, "users", session?.user?.email!, "chats", id));
@@ -32,11 +32,9 @@ const ChatRow = ({ id }: { id: string }) => {
   return (
     <Link
       href={`/chat/${id}`}
-      className={`chatRow justify-center ${active && "bg-gray-[#212121]"}`}
+      className={`chatRow justify-center pr-2 ${active && "bg-gray-[#212121]"}`}
     >
-      <ChatBubbleLeftIcon className="h-5 w-5" />
-
-      <p className="flex-1 hidden md:inline-flex truncate">
+      <p className="flex-1 px-2 text-sm md:inline-flex overflow-hidden whitespace-nowrap">
         {messages?.docs[messages?.docs.length - 1]?.data().text || "New Chat"}
       </p>
       <TrashIcon

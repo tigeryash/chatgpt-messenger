@@ -20,9 +20,7 @@ const Header = () => {
         hover:bg-[#2f2f2f] text-white md:ml-0 "
         >
           {!isMediumScreen && !click && <MenuToggle />}
-          <p className="md:pl-4 text-xl">
-            ChatGPT <span className="hidden md:visible">3.5</span>
-          </p>
+          <p className={`${!click ? "md:pl-2" : ""} text-xl`}>ChatGPT</p>
           <ChevronDownIcon className="h-5 w-5" />
         </div>
 

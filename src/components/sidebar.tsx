@@ -8,10 +8,12 @@ import ChatRow from "./chat-row";
 import { useMediaQuery } from "react-responsive";
 import { useMenuStore } from "@/stores/menustore";
 import MenuToggle from "./menu-toggle";
+import Image from "next/image";
 
 const SideBar = () => {
   const { data: session, status } = useSession();
   const click = useMenuStore((state) => state.click);
+  const isMobile = useMediaQuery({ maxWidth: 768 });
 
   const [chats, loading, error] = useCollection(
     session &&
@@ -22,33 +24,46 @@ const SideBar = () => {
   );
 
   return (
-    <aside className="relative p-2 flex flex-col min-h-screen">
-      <div className="flex-1">
-        <div>
-          <div className="flex justify-between w-full px-4 py-2">
-            <MenuToggle />
-            <NewChat session={session} />
-          </div>
+    <aside
+      className={`relative flex flex-col flex-1 h-full ${
+        isMobile ? "w-full" : "w-[260px]"
+      }`}
+    >
+      <div
+        className={` ${
+          isMobile ? "w-full" : "w-[260px]"
+        } bg-[#171717] flex justify-between  py-4 px-5`}
+      >
+        <MenuToggle />
+        <NewChat session={session} />
+      </div>
 
-          <div className="flex flex-col space-y-2 my-2">
-            {loading && (
-              <div className="animate-pulse text-center text-white">
-                <p>Loading chats...</p>
-              </div>
-            )}
-            {chats?.docs.map((chat) => (
-              <ChatRow key={chat.id} id={chat.id} />
-            ))}
-          </div>
+      <div className="flex-1 overflow-y-auto px-3">
+        <div className="flex flex-col space-y-2  ">
+          {loading && (
+            <div className="animate-pulse text-center text-white">
+              <p>Loading chats...</p>
+            </div>
+          )}
+          {chats?.docs.map((chat) => (
+            <ChatRow key={chat.id} id={chat.id} />
+          ))}
         </div>
       </div>
+
       {session && (
-        <div className="sticky w-[260px] bottom-0 flex justify-center items-center">
-          <img
+        <div
+          className={` ${
+            isMobile ? "w-full" : "w-[260px]"
+          } bg-[#171717] flex p-2 justify-center items-center`}
+        >
+          <Image
             onClick={() => signOut()}
             src={session.user?.image!}
             alt="Profile pic"
-            className=" h-12 w-12 rounded-full cursor-pointer mb-2 hover:opacity-50"
+            height={140}
+            width={140}
+            className=" h-12 w-12 rounded-full cursor-pointer hover:opacity-50"
           />
         </div>
       )}

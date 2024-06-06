@@ -81,7 +81,7 @@ const ChatInput = ({ chatId }: { chatId: string }) => {
   };
 
   return (
-    <div className="sticky text-gray-400 text-sm w-full flex justify-center">
+    <div className=" text-gray-400 text-sm w-full flex justify-center">
       <form
         ref={formRef}
         onSubmit={sendMessage}
