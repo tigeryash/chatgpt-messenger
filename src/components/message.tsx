@@ -10,7 +10,10 @@ const Message = ({ message }: { message: DocumentData }) => {
     <>
       {isChatGPT ? (
         <div className="flex w-full items-start gap-3">
-          <div className="border-[1px] border-white/50 p-1 flex justify-center items-center rounded-full text-white">
+          <div
+            className="border-[1px] border-white/50 p-1 flex justify-center
+           items-center rounded-full text-white"
+          >
             <Image
               src={chagptImg}
               alt=""
@@ -30,7 +33,8 @@ const Message = ({ message }: { message: DocumentData }) => {
       ) : (
         <div
           className="ml-auto max-w-[212px] sm:max-w-[350px] md:max-w-[70%] min-h-[20px] 
-        rounded-3xl text-sm md:text-base bg-[#2f2f2f] py-2.5 px-5 break-words whitespace-pre-wrap overflow-x-auto"
+        rounded-3xl text-sm md:text-base bg-[#2f2f2f] py-2.5 px-5 break-words whitespace-pre-wrap 
+        overflow-x-auto"
         >
           {message.text}
         </div>

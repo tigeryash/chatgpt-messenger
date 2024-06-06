@@ -34,7 +34,7 @@ const Chat = ({ chatId }: { chatId: string }) => {
 
   useEffect(scrollToBottom, [messages]);
   return (
-    <div className="flex-1 overflow-y-auto py-2 px-3 md:px-5 lg:px-1 xl:px-5 ">
+    <div className="flex-1 overflow-auto py-2 px-3 md:px-5 lg:px-1 xl:px-5 ">
       {messages?.empty && (
         <>
           <p className="mt-10 text-center text-white">
@@ -44,7 +44,7 @@ const Chat = ({ chatId }: { chatId: string }) => {
         </>
       )}
       <div
-        className="relative max-w-full flex-col space-y-2 md:space-y-8 lg:space-y-10 text-white 
+        className="relative overflow-y-auto max-w-full flex-col space-y-2 md:space-y-8 lg:space-y-10 text-white 
       md:mx-auto flex md:max-w-3xl lg:max-w-[40rem] xl:max-w-[48rem]"
       >
         {messages?.docs.map((message) => (
