@@ -3,7 +3,6 @@ import React from "react";
 import chagptImg from "../../public/chatgpt-6.svg";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
-import HeadingWithCopy from "./heading-with-copy";
 
 const Message = ({ message }: { message: DocumentData }) => {
   const isChatGPT = message.user.name === "ChatGPT";
