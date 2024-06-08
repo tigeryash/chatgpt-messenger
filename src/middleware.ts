@@ -7,6 +7,7 @@ import {
   authRoutes,
   publicRoutes,
 } from "@/lib/routes";
+import { NextResponse } from "next/server";
 
 export const { auth } = NextAuth(authConfig);
 
@@ -14,12 +15,12 @@ export default auth((req) => {
   const { nextUrl } = req;
   const isLoggedIn = !!req.auth;
 
-  const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
+  const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix[0]);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
 
   if (isApiAuthRoute) {
-    return;
+    return NextResponse.next();
   }
 
   if (isAuthRoute) {

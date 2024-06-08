@@ -2,10 +2,9 @@ import { DocumentData } from "firebase/firestore";
 import React from "react";
 import chagptImg from "../../public/chatgpt-6.svg";
 import Image from "next/image";
-import ReactMarkdown from "react-markdown";
 
 const Message = ({ message }: { message: DocumentData }) => {
-  const isChatGPT = message.user.name === "ChatGPT";
+  const isChatGPT = message.role.name === "ChatGPT";
   return (
     <>
       {isChatGPT ? (
@@ -26,7 +25,7 @@ const Message = ({ message }: { message: DocumentData }) => {
               className=" text-pretty text-sm md:text-base text-left markdown whitespace-pre-wrap 
             "
             >
-              <ReactMarkdown>{message.text}</ReactMarkdown>
+              {message.content}
             </div>
           </div>
         </div>
@@ -36,7 +35,7 @@ const Message = ({ message }: { message: DocumentData }) => {
         rounded-3xl text-sm md:text-base bg-[#2f2f2f] py-2.5 px-5 break-words whitespace-pre-wrap 
         overflow-x-auto"
         >
-          {message.text}
+          {message.content}
         </div>
       )}
     </>

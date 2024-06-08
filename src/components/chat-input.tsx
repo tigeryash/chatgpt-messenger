@@ -1,25 +1,83 @@
 "use client";
-import {
-  addDoc,
-  collection,
-  doc,
-  onSnapshot,
-  serverTimestamp,
-} from "firebase/firestore";
+import { useChat } from "ai/react";
 import { useSession } from "next-auth/react";
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { useRef } from "react";
+import {
+  collection,
+  addDoc,
+  serverTimestamp,
+  query,
+  orderBy,
+} from "firebase/firestore";
 import { db } from "../../firebase";
-import toast from "react-hot-toast";
-import useSWR from "swr";
 import { ArrowUpIcon } from "@heroicons/react/20/solid";
+import { useCollection } from "react-firebase-hooks/firestore";
 
 const ChatInput = ({ chatId }: { chatId: string }) => {
   const { data: session } = useSession();
-  const [prompt, setPrompt] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
 
-  const { data: model } = useSWR("model", {
-    fallbackData: "gpt-4o-2024-05-13",
+  const [messageHistory] = useCollection(
+    session &&
+      query(
+        collection(
+          db,
+          "users",
+          session?.user?.email!,
+          "chats",
+          chatId,
+          "messages"
+        ),
+        orderBy("createdAt", "asc")
+      )
+  );
+
+  const initialMessages = messageHistory?.docs.map((doc) => ({
+    id: doc.id,
+    content: doc.data().text, // Assuming 'content' is the field name in your Firestore document
+    role: doc.data().user, // Assuming 'role' is the field name in your Firestore document
+  }));
+
+  const {
+    append,
+    isLoading,
+    handleSubmit,
+    input,
+    handleInputChange,
+    messages,
+  } = useChat({
+    initialMessages: initialMessages,
+    onFinish: async (message) => {
+      // Add the message to Firebase
+      const userEmail = session?.user?.email!;
+      const messageRef = collection(
+        db,
+        "users",
+        userEmail,
+        "chats",
+        chatId,
+        "messages"
+      );
+
+      await addDoc(messageRef, {
+        text: message.content,
+        createdAt: new Date(),
+        user: {
+          _id: "ChatGPT",
+          name: "ChatGPT",
+          avatar: "https://ui-avatars.com/api/?name=ChatGPT",
+        },
+      });
+    },
+    api: "/api/askQuestion",
+    id: chatId,
+    onResponse: (response) => {
+      console.log(response);
+    },
+    onError: (error) => {
+      console.log(error, "this is the error");
+      console.log(messages);
+    },
   });
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -31,15 +89,19 @@ const ChatInput = ({ chatId }: { chatId: string }) => {
     }
   };
 
-  const sendMessage = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!prompt) return;
+  const saveUserMessageToFirebase = async (text: string) => {
+    const userEmail = session?.user?.email!;
+    const messageRef = collection(
+      db,
+      "users",
+      userEmail,
+      "chats",
+      chatId,
+      "messages"
+    );
 
-    const input = prompt.trim();
-    setPrompt("");
-
-    const message: Message = {
-      text: input,
+    await addDoc(messageRef, {
+      text,
       createdAt: serverTimestamp(),
       user: {
         _id: session?.user?.email!,
@@ -48,49 +110,27 @@ const ChatInput = ({ chatId }: { chatId: string }) => {
           session?.user?.image! ||
           `https://ui-avatars.com/api/?name=${session?.user?.name}`,
       },
-    };
-
-    await addDoc(
-      collection(
-        db,
-        "users",
-        session?.user?.email!,
-        "chats",
-        chatId,
-        "messages"
-      ),
-      message
-    );
-
-    const notification = toast.loading("ChatGPT is thinking...");
-
-    await fetch("/api/askQuestion", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        prompt: input,
-        chatId,
-        model,
-        session,
-      }),
-    }).then(() => {
-      toast.success("ChatGPT has responded!", { id: notification });
     });
+  };
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!input.trim()) return;
+
+    await saveUserMessageToFirebase(input.trim());
+    handleSubmit(e);
   };
 
   return (
     <div className=" text-gray-400 text-sm w-full flex justify-center">
       <form
         ref={formRef}
-        onSubmit={sendMessage}
-        className="relative bg-[#2f2f2f] mx-2 flex flex-row gap-3 lg:mx-auto lg:max-w-2xl xl:max-w-3xl overflow-hidden  flex-grow
-          rounded-full "
+        onSubmit={onSubmit}
+        className="relative bg-[#2f2f2f] mx-2 flex flex-row gap-3 lg:mx-auto lg:max-w-2xl xl:max-w-3xl overflow-hidden flex-grow rounded-full"
       >
         <textarea
-          value={prompt}
-          onChange={(e) => setPrompt(e.target.value)}
+          value={input}
+          onChange={handleInputChange}
           onKeyDown={handleKeyDown}
           placeholder="Message ChatGPT..."
           style={{ overflowY: "hidden" }}
@@ -102,7 +142,7 @@ const ChatInput = ({ chatId }: { chatId: string }) => {
 
         <button
           type="submit"
-          disabled={!prompt || !session}
+          disabled={!input || !session || isLoading}
           className="absolute bottom-[20.2%] right-[2%] sm:right-[1%]  rounded-full border border-black bg-black p-1
            text-black transition-colors enabled:bg-white disabled:text-gray-400 disabled:bg-[#676767]
              md:bottom-[18%] md:right-3"

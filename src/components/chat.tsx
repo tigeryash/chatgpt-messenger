@@ -7,11 +7,12 @@ import { collection, orderBy, query } from "firebase/firestore";
 import Message from "./message";
 import { ArrowDownCircleIcon } from "@heroicons/react/24/outline";
 import React, { useEffect, useRef, useState } from "react";
+import { useChat } from "ai/react";
 
 const Chat = ({ chatId }: { chatId: string }) => {
   const { data: session } = useSession();
 
-  const [messages] = useCollection(
+  const [messageHistory] = useCollection(
     session &&
       query(
         collection(
@@ -26,8 +27,18 @@ const Chat = ({ chatId }: { chatId: string }) => {
       )
   );
 
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messages = messageHistory?.docs.map((doc) => ({
+    id: doc.id,
+    content: doc.data().text, // Assuming 'content' is the field name in your Firestore document
+    role: doc.data().user, // Assuming 'role' is the field name in your Firestore document
+  }));
 
+  // const { messages, isLoading } = useChat({
+  //   id: chatId,
+  //   initialMessages: initialMessages,
+  // });
+  // console.log(messages);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -35,7 +46,7 @@ const Chat = ({ chatId }: { chatId: string }) => {
   useEffect(scrollToBottom, [messages]);
   return (
     <div className="flex-1 overflow-auto py-2 px-3 md:px-5 lg:px-1 xl:px-5 ">
-      {messages?.empty && (
+      {messages?.length === 0 && (
         <>
           <p className="mt-10 text-center text-white">
             Type in a prompt to get started
@@ -47,8 +58,8 @@ const Chat = ({ chatId }: { chatId: string }) => {
         className="relative overflow-y-auto max-w-full flex-col space-y-2 md:space-y-8 lg:space-y-10 text-white 
       md:mx-auto flex md:max-w-3xl lg:max-w-[40rem] xl:max-w-[48rem]"
       >
-        {messages?.docs.map((message) => (
-          <Message key={message.id} message={message.data()} />
+        {messages?.map((message) => (
+          <Message key={message.id} message={message} />
         ))}
       </div>
 

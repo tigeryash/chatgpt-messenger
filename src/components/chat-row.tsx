@@ -1,6 +1,6 @@
 "use client";
 import { ChatBubbleLeftIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { collection, deleteDoc, doc } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -25,10 +25,31 @@ const ChatRow = ({ id }: { id: string }) => {
   }, [pathname, id]);
 
   const removeChat = async () => {
-    await deleteDoc(doc(db, "users", session?.user?.email!, "chats", id));
+    const userChatsDocRef = doc(
+      db,
+      "users",
+      session?.user?.email!,
+      "chats",
+      id
+    );
+    const messagesCollectionRef = collection(userChatsDocRef, "messages");
+
+    // Get all documents in the messages subcollection
+    const messagesSnapshot = await getDocs(messagesCollectionRef);
+
+    // Delete all documents in the messages subcollection
+    const deleteMessagesPromises = messagesSnapshot.docs.map((messageDoc) =>
+      deleteDoc(messageDoc.ref)
+    );
+
+    // Wait for all messages to be deleted
+    await Promise.all(deleteMessagesPromises);
+
+    // Delete the chat document
+    await deleteDoc(userChatsDocRef);
+
     router.replace("/chat");
   };
-
   return (
     <Link
       href={`/chat/${id}`}
