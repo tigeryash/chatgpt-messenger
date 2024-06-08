@@ -35,7 +35,7 @@ const ChatInput = ({ chatId }: { chatId: string }) => {
   const initialMessages = messageHistory?.docs.map((doc) => ({
     id: doc.id,
     content: doc.data().text, // Assuming 'content' is the field name in your Firestore document
-    role: doc.data().user, // Assuming 'role' is the field name in your Firestore document
+    role: doc.data().user.name, // Assuming 'role' is the field name in your Firestore document
   }));
 
   const {
