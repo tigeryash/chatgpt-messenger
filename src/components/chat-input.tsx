@@ -1,7 +1,7 @@
 "use client";
 import { useChat } from "ai/react";
 import { useSession } from "next-auth/react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import {
   collection,
   addDoc,
@@ -12,10 +12,12 @@ import {
 import { db } from "../../firebase";
 import { ArrowUpIcon } from "@heroicons/react/20/solid";
 import { useCollection } from "react-firebase-hooks/firestore";
+import useChatStore from "@/stores/chatstore";
 
 const ChatInput = ({ chatId }: { chatId: string }) => {
   const { data: session } = useSession();
   const formRef = useRef<HTMLFormElement>(null);
+  const setMessagestore = useChatStore((state) => state.setMessagestore);
 
   const [messageHistory] = useCollection(
     session &&
@@ -39,12 +41,12 @@ const ChatInput = ({ chatId }: { chatId: string }) => {
   }));
 
   const {
-    append,
     isLoading,
     handleSubmit,
     input,
     handleInputChange,
     messages,
+    setMessages,
   } = useChat({
     initialMessages: initialMessages,
     onFinish: async (message) => {
@@ -79,6 +81,9 @@ const ChatInput = ({ chatId }: { chatId: string }) => {
       console.log(messages);
     },
   });
+
+  setMessagestore(messages);
+  console.log(messages);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter") {

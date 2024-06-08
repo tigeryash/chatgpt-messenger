@@ -4,7 +4,7 @@ import chagptImg from "../../public/chatgpt-6.svg";
 import Image from "next/image";
 
 const Message = ({ message }: { message: DocumentData }) => {
-  const isChatGPT = message.role.name === "ChatGPT";
+  const isChatGPT = message.role === "ChatGPT" || message.role === "assistant";
   return (
     <>
       {isChatGPT ? (

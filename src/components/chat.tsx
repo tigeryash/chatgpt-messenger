@@ -8,36 +8,11 @@ import Message from "./message";
 import { ArrowDownCircleIcon } from "@heroicons/react/24/outline";
 import React, { useEffect, useRef, useState } from "react";
 import { useChat } from "ai/react";
+import useChatStore from "@/stores/chatstore";
 
 const Chat = ({ chatId }: { chatId: string }) => {
-  const { data: session } = useSession();
+  const messages = useChatStore((state) => state.messages);
 
-  const [messageHistory] = useCollection(
-    session &&
-      query(
-        collection(
-          db,
-          "users",
-          session?.user?.email!,
-          "chats",
-          chatId,
-          "messages"
-        ),
-        orderBy("createdAt", "asc")
-      )
-  );
-
-  const messages = messageHistory?.docs.map((doc) => ({
-    id: doc.id,
-    content: doc.data().text, // Assuming 'content' is the field name in your Firestore document
-    role: doc.data().user, // Assuming 'role' is the field name in your Firestore document
-  }));
-
-  // const { messages, isLoading } = useChat({
-  //   id: chatId,
-  //   initialMessages: initialMessages,
-  // });
-  // console.log(messages);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });

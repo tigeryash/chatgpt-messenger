@@ -9,7 +9,7 @@ export async function POST(req: Request) {
   console.log("Input:", messages);
 
   const result = await streamText({
-    model: openai("gpt-4-turbo"),
+    model: openai("gpt-4o"),
     prompt: messages[messages.length - 1].content,
   });
 
