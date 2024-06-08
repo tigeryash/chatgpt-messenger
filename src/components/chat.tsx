@@ -1,13 +1,8 @@
 "use client";
 
-import { useSession } from "next-auth/react";
-import { useCollection } from "react-firebase-hooks/firestore";
-import { db } from "../../firebase";
-import { collection, orderBy, query } from "firebase/firestore";
 import Message from "./message";
 import { ArrowDownCircleIcon } from "@heroicons/react/24/outline";
 import React, { useEffect, useRef, useState } from "react";
-import { useChat } from "ai/react";
 import useChatStore from "@/stores/chatstore";
 
 const Chat = ({ chatId }: { chatId: string }) => {
