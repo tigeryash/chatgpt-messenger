@@ -6,6 +6,6 @@ type MenuStore = {
 };
 
 export const useMenuStore = create<MenuStore>((set) => ({
-  click: false,
+  click: true,
   toggleClick: () => set((state) => ({ click: !state.click })),
 }));

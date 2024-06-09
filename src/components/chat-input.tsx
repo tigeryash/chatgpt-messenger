@@ -1,7 +1,7 @@
 "use client";
 import { useChat } from "ai/react";
 import { useSession } from "next-auth/react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   collection,
   addDoc,
@@ -18,6 +18,7 @@ const ChatInput = ({ chatId }: { chatId: string }) => {
   const { data: session } = useSession();
   const formRef = useRef<HTMLFormElement>(null);
   const setMessagestore = useChatStore((state) => state.setMessagestore);
+  const [isInitialLoad, setIsInitialLoad] = useState(true); // Added state to track initial load
 
   const [messageHistory] = useCollection(
     session &&
@@ -40,44 +41,49 @@ const ChatInput = ({ chatId }: { chatId: string }) => {
     role: doc.data().user.name, // Assuming 'role' is the field name in your Firestore document
   }));
 
-  const { isLoading, handleSubmit, input, handleInputChange, messages } =
-    useChat({
-      initialMessages: initialMessages,
-      onFinish: async (message) => {
-        // Add the message to Firebase
-        const userEmail = session?.user?.email!;
-        const messageRef = collection(
-          db,
-          "users",
-          userEmail,
-          "chats",
-          chatId,
-          "messages"
-        );
+  const {
+    isLoading,
+    handleSubmit,
+    input,
+    handleInputChange,
+    messages,
+    setMessages,
+  } = useChat({
+    initialMessages: initialMessages,
+    onFinish: async (message) => {
+      // Add the message to Firebase
+      const userEmail = session?.user?.email!;
+      const messageRef = collection(
+        db,
+        "users",
+        userEmail,
+        "chats",
+        chatId,
+        "messages"
+      );
 
-        await addDoc(messageRef, {
-          text: message.content,
-          createdAt: new Date(),
-          user: {
-            _id: "ChatGPT",
-            name: "ChatGPT",
-            avatar: "https://ui-avatars.com/api/?name=ChatGPT",
-          },
-        });
-      },
-      api: "/api/askQuestion",
-      id: chatId,
-      onResponse: (response) => {
-        console.log(response);
-      },
-      onError: (error) => {
-        console.log(error, "this is the error");
-        console.log(messages);
-      },
-    });
+      await addDoc(messageRef, {
+        text: message.content,
+        createdAt: new Date(),
+        user: {
+          _id: "ChatGPT",
+          name: "ChatGPT",
+          avatar: "https://ui-avatars.com/api/?name=ChatGPT",
+        },
+      });
+    },
+    api: "/api/askQuestion",
+    id: chatId,
+    onResponse: (response) => {
+      console.log(response);
+    },
+    onError: (error) => {
+      console.log(error, "this is the error");
+      console.log(messages);
+    },
+  });
 
-  setMessagestore(messages.filter((msg) => msg.role !== "user"));
-  console.log(messages);
+  setMessagestore(messages);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter") {
@@ -115,9 +121,9 @@ const ChatInput = ({ chatId }: { chatId: string }) => {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!input.trim()) return;
+    handleSubmit(e);
 
     await saveUserMessageToFirebase(input.trim());
-    handleSubmit(e);
   };
 
   return (

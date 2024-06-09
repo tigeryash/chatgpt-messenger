@@ -9,7 +9,6 @@ const DisplaySidebar = () => {
   const click = useMenuStore((state) => state.click);
   const isMediumScreen = useMediaQuery({ query: "(max-width: 768px)" }); // adjust the value as needed
   const isBigScreen = useMediaQuery({ query: "(min-width: 769px)" }); // adjust the value as needed
-  console.log(click);
   return (
     <>
       {isMediumScreen && (
