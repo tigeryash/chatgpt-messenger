@@ -1,4 +1,3 @@
-Edit in Progress 10:11 AM EST 9/25/2024
  <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a id="readme-top"></a>
 
@@ -156,7 +155,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Usage
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
+To use this app it's exactly like how you'd use the real ChatGPT website. You need to log in with a google account first. After you should see the home page where you can start a new chat 
+When in a new chat you should see an input at the bottom of the screen where you should be able to talk to the AI. 
+Switching or starting more chats is available on the sidebar or by opening it up on the menu button on mobile.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
