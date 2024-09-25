@@ -75,21 +75,21 @@ This section should list any major frameworks/libraries used to bootstrap your p
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Dependencies
- "@heroicons/react": "^2.1.3"
- "ai": "^3.0.24"
- "firebase": "^10.11.0"
- "firebase-admin": "^12.1.0"
- "framer-motion": "^11.1.7"
- "next": "14.2.2"
- "next-auth": "^5.0.0-beta.16"
- "openai": "^4.38.2"
- "react": "^18"
- "react-dom": "^18"
- "react-firebase-hooks": "^5.1.1"
- "react-hot-toast": "^2.4.1"
- "react-responsive": "^10.0.0"
- "react-select": "^5.8.0"
- "zustand": "^4.5.2"
+@heroicons/react
+ai
+firebase
+firebase-admin
+framer-motion
+next
+next-auth
+openai
+react": "^18"
+react-dom": "^18"
+react-firebase-hooks
+react-hot-toast
+react-responsive
+react-select
+zustand
 
 
 
