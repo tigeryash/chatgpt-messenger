@@ -1,5 +1,3 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
 ## Getting Started
 
 First, run the development server:
@@ -16,21 +14,33 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+To run this project on your own you'd need these variable inside of your .env file.
+GOOGLE_CLIENT_ID
+GOOGLE_CLIENT_SECRET
+NEXT_AUTH_URL=http://localhost:3000
+AUTH_SECRET=
+OPENAI_API_KEY=
+FIREBASE_SERVICE_ACCOUNT_KEY
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Purpose
+This app was sued to test my currect React knowledge and practice or learn some new skills along the way. This Web app is supposed to replicate the functionality of openAi's ChaGPT website. The user can log in with a google account and instantly start chatting with the AI. The chat history is saved and multiple chats can be created and saved. The user can switch be the chats. The AI text is streamed through. 
+As a developer this project helped me expand my Nextjs knowledge as well as taught me how to learn things on my own and figure out how to integrate the frontend with the backend. 
 
-## Learn More
+## Dependencies
+ "@heroicons/react": "^2.1.3",
+    "ai": "^3.0.24",
+    "firebase": "^10.11.0",
+    "firebase-admin": "^12.1.0",
+    "framer-motion": "^11.1.7",
+    "next": "14.2.2",
+    "next-auth": "^5.0.0-beta.16",
+    "openai": "^4.38.2",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-firebase-hooks": "^5.1.1",
+    "react-hot-toast": "^2.4.1",
+    "react-responsive": "^10.0.0",
+    "react-select": "^5.8.0",
+    "zustand": "^4.5.2"
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
