@@ -1,51 +1,4 @@
 Edit in Progress 10:11 AM EST 9/25/2024
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-To run this project on your own you'd need these variable inside of your .env file.
-GOOGLE_CLIENT_ID
-GOOGLE_CLIENT_SECRET
-NEXT_AUTH_URL=http://localhost:3000
-AUTH_SECRET=
-OPENAI_API_KEY=
-FIREBASE_SERVICE_ACCOUNT_KEY
-
-## Description
-This app was used to test my currect React knowledge and practice or learn some new skills along the way. This Web app is supposed to replicate the functionality of openAI's ChatGPT website. The user can log in with a google account and instantly start chatting with the AI. The chat history is saved and multiple chats can be created and saved. The user can switch be the chats. The AI text is streamed through. 
-As a developer this project helped me expand my Nextjs knowledge as well as taught me how to learn things on my own and figure out how to integrate the frontend with the backend. 
-
-## Dependencies
- "@heroicons/react": "^2.1.3"
- "ai": "^3.0.24"
- "firebase": "^10.11.0"
- "firebase-admin": "^12.1.0"
- "framer-motion": "^11.1.7"
- "next": "14.2.2"
- "next-auth": "^5.0.0-beta.16"
- "openai": "^4.38.2"
- "react": "^18"
- "react-dom": "^18"
- "react-firebase-hooks": "^5.1.1"
- "react-hot-toast": "^2.4.1"
- "react-responsive": "^10.0.0"
- "react-select": "^5.8.0"
- "zustand": "^4.5.2"
-
-
  <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a id="readme-top"></a>
 <!--
@@ -130,20 +83,13 @@ As a developer this project helped me expand my Nextjs knowledge as well as taug
 
 [![Product Name Screen Shot][product-screenshot]](https://chatgpt-messenger-five.vercel.app/)
 
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
 I made this Web App because of the whole AI craze. Since I've been spending a lot of time using modern web development techonologies I wanted to know whether I could truly make something that was state of the art. So I put myself to the test and ended up learning a lot and refining skills which I was weak in. 
 
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
+This Web app is supposed to replicate the functionality of openAI's ChatGPT website. The user can log in with a google account and instantly start chatting with the AI. The chat history is saved and multiple chats can be created and saved. The user can switch be the chats. The AI text is streamed through. 
 
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
-
-Use the `BLANK_README.md` to get started.
+As a developer this project helped me expand my Nextjs knowledge as well as taught me how to learn things on my own and figure out how to integrate the frontend with the backend. 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 ### Built With
@@ -153,8 +99,28 @@ This section should list any major frameworks/libraries used to bootstrap your p
 * [![Next][Next.js]][Next-url]
 * [![React][React.js]][React-url]
 * [![TailwindCSS][Tailwindcss.com]][Tailwind-url]
+* ![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
+* ![ChatGPT](https://img.shields.io/badge/chatGPT-74aa9c?style=for-the-badge&logo=openai&logoColor=white)
+* ![Firebase](https://img.shields.io/badge/firebase-a08021?style=for-the-badge&logo=firebase&logoColor=ffcd34)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Dependencies
+ "@heroicons/react": "^2.1.3"
+ "ai": "^3.0.24"
+ "firebase": "^10.11.0"
+ "firebase-admin": "^12.1.0"
+ "framer-motion": "^11.1.7"
+ "next": "14.2.2"
+ "next-auth": "^5.0.0-beta.16"
+ "openai": "^4.38.2"
+ "react": "^18"
+ "react-dom": "^18"
+ "react-firebase-hooks": "^5.1.1"
+ "react-hot-toast": "^2.4.1"
+ "react-responsive": "^10.0.0"
+ "react-select": "^5.8.0"
+ "zustand": "^4.5.2"
 
 
 
@@ -193,6 +159,28 @@ _Below is an example of how you can instruct your audience on installing and set
    git remote set-url origin github_username/repo_name
    git remote -v # confirm the changes
    ```
+To run this project you'd need these variable inside of your .env file.
+GOOGLE_CLIENT_ID
+GOOGLE_CLIENT_SECRET
+NEXT_AUTH_URL=http://localhost:3000
+AUTH_SECRET=
+OPENAI_API_KEY=
+FIREBASE_SERVICE_ACCOUNT_KEY
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -205,7 +193,6 @@ Use this space to show useful examples of how a project can be used. Additional 
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- ROADMAP -->
