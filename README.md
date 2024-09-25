@@ -11,9 +11,6 @@ Edit in Progress 10:11 AM EST 9/25/2024
   <p align="center">
     My attempt at replicating ChatGPT's website
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
     <a href="https://chatgpt-messenger-five.vercel.app/">View Demo</a>
     <p>
      Readme template from <a href="https://github.com/othneildrew/Best-README-Template/tree/main">here</a>
