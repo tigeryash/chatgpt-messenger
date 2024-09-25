@@ -56,7 +56,7 @@ I made this Web App because of the whole AI craze. Since I've been spending a lo
 
 This Web app is supposed to replicate the functionality of openAI's ChatGPT website. The user can log in with a google account and instantly start chatting with the AI. The chat history is saved and multiple chats can be created and saved. The user can switch be the chats. The AI text is streamed through. 
 
-As a developer this project helped me expand my Nextjs knowledge as well as taught me how to learn things on my own and figure out how to integrate the frontend with the backend. 
+As a developer this project helped me expand my Nextjs knowledge as well as taught me how to learn things on my own and figure out how to integrate the frontend with the backend. The project uses nextjs 14 with app router and typescript. I use Authjs v5 to handle authentication. Firebase is the backend where the chat messages are saved and are tied to the user's google account. I used vercel's AI sdk to connect to openai's chagpt and stream messages from the AI. 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -67,7 +67,7 @@ This section should list any major frameworks/libraries used to bootstrap your p
 
 * [![Next][Next.js]][Next-url]
 * [![React][React.js]][React-url]
-* [![TailwindCSS][Tailwindcss.com]][Tailwind-url]
+* ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 * ![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
 * ![ChatGPT](https://img.shields.io/badge/chatGPT-74aa9c?style=for-the-badge&logo=openai&logoColor=white)
 * ![Firebase](https://img.shields.io/badge/firebase-a08021?style=for-the-badge&logo=firebase&logoColor=ffcd34)
@@ -75,20 +75,20 @@ This section should list any major frameworks/libraries used to bootstrap your p
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Dependencies
-@heroicons/react
-ai
-firebase
-firebase-admin
-framer-motion
-next
-next-auth
-openai
-react": "^18"
-react-dom": "^18"
-react-firebase-hooks
-react-hot-toast
-react-responsive
-react-select
+@heroicons/react,
+ai,
+firebase,
+firebase-admin,
+framer-motion,
+next,
+next-auth,
+openai,
+react,
+react-dom,
+react-firebase-hooks,
+react-hot-toast,
+react-responsive,
+react-select, and
 zustand
 
 
@@ -197,7 +197,3 @@ Project Link: [https://github.com/tigeryash/chatgpt-messenger](https://github.co
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
-[TailwindCSS]: https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white
-[Tailwind-url]: https://tailwindcss.com/
-
-
